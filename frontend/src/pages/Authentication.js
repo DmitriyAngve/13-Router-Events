@@ -1,4 +1,4 @@
-import { json } from "react-router-dom";
+import { json, redirect } from "react-router-dom";
 
 import AuthForm from "../components/AuthForm";
 
@@ -22,7 +22,23 @@ export async function action({ request }) {
     password: data.get("password"),
   };
 
-  fetch("http://localhost:8080/" + mode);
+  const response = await fetch("http://localhost:8080/" + mode, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(authData),
+  });
+
+  if (response.status === 422 || response.status === 401) {
+    return response;
+  }
+
+  if (!response.ok) {
+    throw json({ message: "Could not authenticate user." }, { status: 500 });
+  }
+
+  return redirect("/");
 }
 // 314. Implementing the Auth Action
 // We must add an action to our route (in AuthForm.js), an action that is triggered when Form is submitted.
@@ -43,5 +59,14 @@ export async function action({ request }) {
 // 1.9 Send request with "fetch()" function. /// "fetch("http://localhost:8080/" + mode)" or "/login" based on which "mode" we are in.
 // 1.10 Add "ifcheck" if mode is not equal to "login" and "mode" is not equal to "signup" and if that's the case, we could throw a new error here. We could throw a new error response ("throw json()"). And import "json" function from r-r-d.
 // 1.11 Where we set "message" and "status: 422" - for invalid user input.
-// 1.12
+// 1.12 Store "fetch()" into const "response", which we wanna await. /// " const response = await fetch("http://localhost:8080/" + mode);"
+// 1.13 We need to configure this request, set the "method" to "POST" (in backend "signup" and "login" both "POST" request).
+// 1.14 We wanna set the "headers:"
+// 1.15 Add "body", where we have to convert it to "JSON" format. Where I convert my "authData". /// "body: JSON.stringify(authData)"
+// 1.16 Next step: we can then add the code to handle that "response". If we check this "response.status === 422", which means we have some validation errors, (or 401 error code). If we get these error codes from the backend, I want return some data, to my route component, to the "<AuthForm>" => so I can show a message error here, and show the validation errors next to the form
+// 1.17 Now, if I make it past this check, I also wanna check if the "response" is maybe not okay, if we have any other error, in which case I wanna throw an error "response", so that my closest error element is rendered on the screen.
+// Now if we make it past all these steps, the user creation or signup did succeed.
+// 1.18 Add "redirect" /// "return redirect('/');"
+
+// GO TO App.js where we use this "action" --->>>
 // 314. Implementing the Auth Action

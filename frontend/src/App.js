@@ -13,7 +13,9 @@ import NewEventPage from "./pages/NewEvent";
 import RootLayout from "./pages/Root";
 import { action as manipulateEventAction } from "./components/EventForm";
 import NewsletterPage, { action as newsletterAction } from "./pages/Newsletter";
-import AuthenticationPage from "./pages/Authentication";
+import AuthenticationPage, {
+  action as authAction,
+} from "./pages/Authentication";
 
 const router = createBrowserRouter([
   {
@@ -55,7 +57,7 @@ const router = createBrowserRouter([
           },
         ],
       },
-      { path: "auth", element: <AuthenticationPage /> },
+      { path: "auth", element: <AuthenticationPage />, action: authAction },
       {
         path: "newsletter",
         element: <NewsletterPage />,
@@ -76,3 +78,11 @@ export default App;
 // 1.1 Here I wanna add a new route definition for "auth" route. The "auth" should still be part of my route layout "<RootLayout>". I still want to have that navigation on top of it and so on. It will be a sibling route to "<HomePage>" and entire route stack of my events routes. (path: "auth", element: <AuthenticationPage />)
 // GO TO MainNavigation.js for adding Auth to navigation --->>>
 // 312. Project Setup & Route Setup
+
+//
+
+// 314. Implementing the Auth Action
+// CAME FROM Authentication.js
+// STEP 2:
+// 2.1 import "action" as "authAction". This "action" is now set up as an action here on this route /// "action: authAction"
+// 314. Implementing the Auth Action
