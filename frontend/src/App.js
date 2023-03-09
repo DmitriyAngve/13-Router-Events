@@ -125,3 +125,12 @@ export default App;
 // 3.3 In order to use data from that loader and easily get access to it, I'll assign an ID to that route. /// "id: "root"".
 // GO TO MainNavigation.js --->>>
 // 319. Updating the UI Based on Auth Status
+
+//
+
+// 321. Adding Route Protection
+// We can add route protection to route "path: "edit"" and "path: "new"". Because we shouldn't be able to reach these routes if we not log in because we won't be able to use them correctly anyways.
+// For add this protection we can utilize a loader. A loader that simply checks if we have a token. And if we don't have a token, redirects us away.
+// And I'll add such a loader in auth.js helper file
+// GO TO auth.js --->>>
+// 321. Adding Route Protection
