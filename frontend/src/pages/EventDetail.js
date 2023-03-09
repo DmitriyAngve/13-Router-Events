@@ -81,10 +81,11 @@ export async function action({ params, request }) {
   const eventId = params.eventId;
 
   const token = getAuthToken();
-
   const response = await fetch("http://localhost:8080/events/" + eventId, {
     method: request.method,
-    headers: { "Authorization": "Bearer " + token },
+    headers: {
+      "Authorization": "Bearer " + token,
+    },
   });
 
   if (!response.ok) {
@@ -97,7 +98,6 @@ export async function action({ params, request }) {
   }
   return redirect("/events");
 }
-
 // 317. Attaching Auth Tokens to Outgoing Requests
 // CAME FROM auth.js
 // STEP 3:

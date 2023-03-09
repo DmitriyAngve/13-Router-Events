@@ -17,7 +17,7 @@ import AuthenticationPage, {
   action as authAction,
 } from "./pages/Authentication";
 import { action as logoutAction } from "./pages/Logout";
-import { tokenLoader } from "./util/auth";
+import { checkAuthLoader, tokenLoader } from "./util/auth";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +51,7 @@ const router = createBrowserRouter([
                 path: "edit",
                 element: <EditEventPage />,
                 action: manipulateEventAction,
+                loader: checkAuthLoader,
               },
             ],
           },
@@ -58,10 +59,15 @@ const router = createBrowserRouter([
             path: "new",
             element: <NewEventPage />,
             action: manipulateEventAction,
+            loader: checkAuthLoader,
           },
         ],
       },
-      { path: "auth", element: <AuthenticationPage />, action: authAction },
+      {
+        path: "auth",
+        element: <AuthenticationPage />,
+        action: authAction,
+      },
       {
         path: "newsletter",
         element: <NewsletterPage />,
@@ -133,4 +139,8 @@ export default App;
 // For add this protection we can utilize a loader. A loader that simply checks if we have a token. And if we don't have a token, redirects us away.
 // And I'll add such a loader in auth.js helper file
 // GO TO auth.js --->>>
+
+// CAME FROM auth.js
+// STEP 2:
+// 2.1 We can add that loader to all the routes that need protection /// "loader: checkAuthLoader,"
 // 321. Adding Route Protection

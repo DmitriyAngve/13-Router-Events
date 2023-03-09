@@ -6,8 +6,8 @@ import {
   json,
   redirect,
 } from "react-router-dom";
-import { getAuthToken } from "../util/auth";
 
+import { getAuthToken } from "../util/auth";
 import classes from "./EventForm.module.css";
 
 function EventForm({ method, event }) {

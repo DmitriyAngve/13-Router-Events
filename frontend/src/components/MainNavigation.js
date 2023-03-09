@@ -5,6 +5,7 @@ import NewsletterSignup from "./NewsletterSignup";
 
 function MainNavigation() {
   const token = useRouteLoaderData("root");
+
   return (
     <header className={classes.header}>
       <nav>
