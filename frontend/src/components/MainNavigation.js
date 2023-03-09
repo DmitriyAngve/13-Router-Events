@@ -1,9 +1,10 @@
-import { Form, NavLink } from "react-router-dom";
+import { Form, NavLink, useRouteLoaderData } from "react-router-dom";
 
 import classes from "./MainNavigation.module.css";
 import NewsletterSignup from "./NewsletterSignup";
 
 function MainNavigation() {
+  const token = useRouteLoaderData("root");
   return (
     <header className={classes.header}>
       <nav>
@@ -39,21 +40,25 @@ function MainNavigation() {
               Newsletter
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/auth?mode=login"
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-            >
-              Authentication
-            </NavLink>
-          </li>
-          <li>
-            <Form action="/logout" method="post">
-              <button>Logout</button>
-            </Form>
-          </li>
+          {!token && (
+            <li>
+              <NavLink
+                to="/auth?mode=login"
+                className={({ isActive }) =>
+                  isActive ? classes.active : undefined
+                }
+              >
+                Authentication
+              </NavLink>
+            </li>
+          )}
+          {token && (
+            <li>
+              <Form action="/logout" method="post">
+                <button>Logout</button>
+              </Form>
+            </li>
+          )}
         </ul>
       </nav>
       <NewsletterSignup />
@@ -85,3 +90,18 @@ export default MainNavigation;
 // 318. Adding User Logout
 
 //
+
+// 319. Updating the UI Based on Auth Status
+// CAME FROM App.js
+// STEP 4:
+// 4.1 We can use "useRouteLoaderData" hook to get our token here by targeting the root route. /// "const token = useRouteLoaderData("root");"
+// And we know that what will get here is the token because that is what the that root routes loader does return.
+// The "tokenLoader" (in auth.js) does return the token ("getAuthToken()").
+// If that token exist we're logged in. and if it does not exist (if "token === undefined"), we're not logged in.
+// 4.2 We can conditionally show that authentication link ("<NavLink>") by checking if token exist and only rendering this list item if it does exist. Throuh that would show it if we are logged in and we want the opposite, hence I'll add an excalamtion mark.
+// Now that authentication link is only shown if we're not logged in, if we don't have a token.
+// 4.3 On the other hand that "Logout" button should only be shown if we are logged in. Opposite logic --- if we have a "token", then I render list item.
+
+// We can use the same approach to shown or not "Edit" and "Delete" buttons, or "New Event" button.
+// For that GO TO EventsNavigation.ks --->>> where I have "New Event" button.
+// 319. Updating the UI Based on Auth Status

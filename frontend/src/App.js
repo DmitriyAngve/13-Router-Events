@@ -17,13 +17,15 @@ import AuthenticationPage, {
   action as authAction,
 } from "./pages/Authentication";
 import { action as logoutAction } from "./pages/Logout";
+import { tokenLoader } from "./util/auth";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
-    loader: ()=>{}
+    id: "root",
+    loader: tokenLoader,
     children: [
       { index: true, element: <HomePage /> },
       {
@@ -114,4 +116,12 @@ export default App;
 // 1.1 Add a "loader", which simply takes a look at "localStorage" and extracts the token from "localStorage". And that token would then be available through the loader data of that root route in all other routes.
 // React router will automatically reevaluate that if we logout, if we submit that logout form. So it will then refetch that token and for example determine that the token doesn't exist and then update all the pages that use that loader data from that root route.
 // GO TO my utility file -> auth.js to separate file in my off utility file.--->>>
+
+// CAME FROM auth.js
+// STEP 3:
+// 3.1 Import "tokenLoader" and use on that root route.
+// 3.2 Now this ("loader: tokenLoader,") will be called whenever a new navigation action occurs, because we triggered a logout and therefore we will check the current status of the token whenever the user does anything on the page whenever the user submits a form or navigates around. And that therefore ensures that we always have the latest information about that token.
+// Now we can use it "tokenLoader" in all other routes.
+// 3.3 In order to use data from that loader and easily get access to it, I'll assign an ID to that route. /// "id: "root"".
+// GO TO MainNavigation.js --->>>
 // 319. Updating the UI Based on Auth Status

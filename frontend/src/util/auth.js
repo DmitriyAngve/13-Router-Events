@@ -25,4 +25,5 @@ export function tokenLoader() {
 // STEP 2:
 // 2.1 Add export function "tokenLoader()". In that function I'll simply call "getAuthToken" and return the result of calling that.
 // Now I can use that helper function whathever I want.
+// NOW BACK IN App.js --->>>
 // 319. Updating the UI Based on Auth Status
