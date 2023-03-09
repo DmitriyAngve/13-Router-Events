@@ -38,6 +38,11 @@ export async function action({ request }) {
     throw json({ message: "Could not authenticate user." }, { status: 500 });
   }
 
+  const resData = await response.json();
+  const token = resData.token;
+
+  localStorage.setItem("token", token);
+
   return redirect("/");
 }
 // 314. Implementing the Auth Action
@@ -70,3 +75,22 @@ export async function action({ request }) {
 
 // GO TO App.js where we use this "action" --->>>
 // 314. Implementing the Auth Action
+
+//
+
+// 317. Attaching Auth Tokens to Outgoing Requests
+// STEP 1:
+// If the goal to attach the token to outgoing requests, we have to store that token when we get it back from the backend after signing up or logging in. Because just to bring that back in memory on the backend for the sign up and the login routes, which I have (in auth.js in backend folder).
+// I am creating a token "(const token = createJSONToken(email); res.json({token}))" and I'm returning that token under a token key as part of the response that's sent back to the frontend.
+// So on the frontend, when we get that "response", we now wanna extract and store that token.
+// Next step: we can attach it to outgoing requests.
+// here in Authentication.js file in the "action" that is triggered when we submit the form before we redirect the user away, we wanna extract that token frorm the "response".
+// 1.1 Add "resData" /// "const resData = await response.json()"
+// 1.2 That "response" data contains the token under a token key (as in the backend code) /// "const token = resData.token;" ///
+// And that token must now be stored so that we can use it.
+// There are vatious options where we can store token.
+// We could try to store it in memory/cookie/localStorage (which is a browser API)
+// 1.3 get access to "localStorage" and set a new item to store that token with key of token and then store my extracked token here. /// "localStorage.setItem("token", token)"
+// 1.4 Now we can get this "token" when we need it for outgoing requests. For that, I'll add a little helper function in a folder named "util" in file "auth.js"
+// GO TO auth.js --->>>
+// 317. Attaching Auth Tokens to Outgoing Requests
