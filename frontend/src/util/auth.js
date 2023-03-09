@@ -50,3 +50,5 @@ export function checkAuthLoader() {
 // So this "checkAuthLoader()" can be used to protect a route. That's one way of protecting a route.
 // Now back in App.js --->>>
 // 321. Adding Route Protection
+
+//
