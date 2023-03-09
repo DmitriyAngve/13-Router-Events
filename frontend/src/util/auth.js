@@ -2,6 +2,11 @@ export function getAuthToken() {
   const token = localStorage.getItem("token");
   return token;
 }
+
+export function tokenLoader() {
+  return getAuthToken();
+}
+
 // 317. Attaching Auth Tokens to Outgoing Requests
 // CAME FROM Authentication.js
 // STEP 2:
@@ -12,3 +17,12 @@ export function getAuthToken() {
 // For example in the EventDetail.js file.
 // GO TO EventDetail.js --->
 // 317. Attaching Auth Tokens to Outgoing Requests
+
+//
+
+// 319. Updating the UI Based on Auth Status
+// CAME FROM App.js
+// STEP 2:
+// 2.1 Add export function "tokenLoader()". In that function I'll simply call "getAuthToken" and return the result of calling that.
+// Now I can use that helper function whathever I want.
+// 319. Updating the UI Based on Auth Status

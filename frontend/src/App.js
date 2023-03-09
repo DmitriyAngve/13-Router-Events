@@ -16,12 +16,14 @@ import NewsletterPage, { action as newsletterAction } from "./pages/Newsletter";
 import AuthenticationPage, {
   action as authAction,
 } from "./pages/Authentication";
+import { action as logoutAction } from "./pages/Logout";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
+    loader: ()=>{}
     children: [
       { index: true, element: <HomePage /> },
       {
@@ -63,6 +65,10 @@ const router = createBrowserRouter([
         element: <NewsletterPage />,
         action: newsletterAction,
       },
+      {
+        path: "logout",
+        action: logoutAction,
+      },
     ],
   },
 ]);
@@ -88,3 +94,24 @@ export default App;
 // 314. Implementing the Auth Action
 
 //
+
+// 318. Adding User Logout
+// CAME FROM Logout.js
+// STEP 2:
+// 2.1 Let register a new route that only has that "action" and no component.
+// 2.2 Add a new route below the all other routes. New route will have a "path" and imported function "action". /// "path: "logout",action: logoutAction,"
+// 2.3 Now we can send a request to this route. We can sunmit a form that targets this route that I'll do in MainNavigation.js
+// GO TO MainNavigation.js --->>>
+// 318. Adding User Logout
+
+//
+
+// 319. Updating the UI Based on Auth Status
+// If the "token" would be removed, because we log out, the UI automatically updates.
+// We could use React Context for managing that "token" across the entire application, instead of using r-r-d.
+// Let's use a r-r-d for that.
+// STEP 1:
+// 1.1 Add a "loader", which simply takes a look at "localStorage" and extracts the token from "localStorage". And that token would then be available through the loader data of that root route in all other routes.
+// React router will automatically reevaluate that if we logout, if we submit that logout form. So it will then refetch that token and for example determine that the token doesn't exist and then update all the pages that use that loader data from that root route.
+// GO TO my utility file -> auth.js to separate file in my off utility file.--->>>
+// 319. Updating the UI Based on Auth Status
