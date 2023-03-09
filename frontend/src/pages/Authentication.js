@@ -42,6 +42,9 @@ export async function action({ request }) {
   const token = resData.token;
 
   localStorage.setItem("token", token);
+  const expiration = new Date();
+  expiration.setHours(expiration.getHours() + 1);
+  localStorage.getItem("expiration", expiration.toISOString());
 
   return redirect("/");
 }
@@ -94,3 +97,22 @@ export async function action({ request }) {
 // 1.4 Now we can get this "token" when we need it for outgoing requests. For that, I'll add a little helper function in a folder named "util" in file "auth.js"
 // GO TO auth.js --->>>
 // 317. Attaching Auth Tokens to Outgoing Requests
+
+//
+
+// 323. Managing the Token Expiration
+// Let's see which FLAW does this solutuon have.
+// FLAW - after reload an application timer starts again (we found a "token" in a local Storage).
+// It's not enough to always set this timer to 1 hour. Instead we need to mahage and register, the actual "token" expiration.
+// To do that, we should go to our "action" that's triggered, when we authenticate where we do store that "token". And here we should also store the expiration time. Because that's the code that executes when we first get a "token".
+// Therefore here, we know for sure that the "token" will expire in 1 hour.
+// STEP 1:
+// 1.1 Therefore, we should calculate an expiration date, by creating a new date object. /// "const expiration = new Date();"
+// 1.2 And then we can call the "setHours" method on that object and here we pass expiration.getHours plus 1 /// "expiration.setHours(expiration.getHours() + 1);"
+// TThat basically creates a data that is 1 hour in the future.
+// 1.3 and then we wanna store that data in local storage. // "localStorage.getItem("expiration")" and the value is expiration.toISOString, to convert theis data to a standardized string.
+// This ensures that we do respect that expiration date.
+//
+// Now we can update "getAuthToken" utility function, to also take a look at that expiration date, and find out if the "token" did maybe expire.
+// GO TO auth.js --->>>
+// 323. Managing the Token Expiration

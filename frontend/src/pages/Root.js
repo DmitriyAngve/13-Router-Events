@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Outlet, useLoaderData, useSubmit } from "react-router-dom";
 
 import MainNavigation from "../components/MainNavigation";
+import { getTokenDuration } from "../util/auth";
 
 function RootLayout() {
   const token = useLoaderData();
@@ -12,9 +13,17 @@ function RootLayout() {
       return;
     }
 
+    if (token === "EXPIRED") {
+      submit(null, { action: "/logout", method: "post" });
+      return;
+    }
+
+    const tokenDuration = getTokenDuration();
+    console.log(tokenDuration);
+
     setTimeout(() => {
       submit(null, { action: "/logout", method: "post" });
-    }, 1 * 60 * 60 * 1000);
+    }, tokenDuration);
   }, [token, submit]);
   // const navigation = useNavigation();
 
@@ -55,7 +64,15 @@ export default RootLayout;
 //
 
 // 323. Managing the Token Expiration
-//
-// STEP 1:
-// 1.1
+// CAME FROM auth.js
+// STEP 2:
+// 2.1 Here I'm check if I don't have a token. Add "ifcheck" if "token" is equal to "EXPIRED" I also want to trigger this ("submit(null, { action: "/logout", method: "post" });") logout action.
+// 2.2 After return because we don't need to set any timer thereafter.
+// If we wanna pass this check we know that we have a valid "token".
+// 2.3 I want to set a duration here, that takes the remaining lifetime of the "token" into account.
+// 2.4 Add "const tokenDuration = getTokenDuration()", that helper function we just added in the util/auth.js file.
+// 2.5 then replace timeout with that "tokenDuration".
+// With those changes made I just also must make sure that in "getAuthToken", I not always return "EXPIRED", but I also check if we have a "token" at all.
+
+// GO TO auth.js --- >>>
 // 323. Managing the Token Expiration
