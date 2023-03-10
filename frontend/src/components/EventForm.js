@@ -122,10 +122,3 @@ export async function action({ request, params }) {
 
   return redirect("/events");
 }
-
-// 317. Attaching Auth Tokens to Outgoing Requests
-// CAME FROM EventDetail.js
-// STEP 4:
-// 4.1 Add for "headers" /// "Authorization: "Bearer " + token,"
-// 4.2 And get "token" with "getAuthToken()" function.
-// 317. Attaching Auth Tokens to Outgoing Requests

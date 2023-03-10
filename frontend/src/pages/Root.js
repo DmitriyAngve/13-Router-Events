@@ -7,7 +7,7 @@ import { getTokenDuration } from "../util/auth";
 function RootLayout() {
   const token = useLoaderData();
   const submit = useSubmit();
-
+  // const navigation = useNavigation();
   useEffect(() => {
     if (!token) {
       return;
@@ -25,7 +25,6 @@ function RootLayout() {
       submit(null, { action: "/logout", method: "post" });
     }, tokenDuration);
   }, [token, submit]);
-  // const navigation = useNavigation();
 
   return (
     <>
@@ -39,7 +38,6 @@ function RootLayout() {
 }
 
 export default RootLayout;
-
 // 322. Adding Automatic Logout
 // After one hour the token should be removed from local storage and the UI should update accordingly. (look at auth.js in backedn folder)
 // STEP 1:

@@ -86,7 +86,6 @@ function App() {
 }
 
 export default App;
-
 // 312. Project Setup & Route Setup
 // STEP 1:
 // 1.1 Here I wanna add a new route definition for "auth" route. The "auth" should still be part of my route layout "<RootLayout>". I still want to have that navigation on top of it and so on. It will be a sibling route to "<HomePage>" and entire route stack of my events routes. (path: "auth", element: <AuthenticationPage />)

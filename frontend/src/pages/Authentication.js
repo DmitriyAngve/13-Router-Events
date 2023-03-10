@@ -44,10 +44,11 @@ export async function action({ request }) {
   localStorage.setItem("token", token);
   const expiration = new Date();
   expiration.setHours(expiration.getHours() + 1);
-  localStorage.getItem("expiration", expiration.toISOString());
+  localStorage.setItem("expiration", expiration.toISOString());
 
   return redirect("/");
 }
+
 // 314. Implementing the Auth Action
 // We must add an action to our route (in AuthForm.js), an action that is triggered when Form is submitted.
 // STEP 1:

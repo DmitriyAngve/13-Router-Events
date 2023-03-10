@@ -31,11 +31,3 @@ function EventItem({ event }) {
 }
 
 export default EventItem;
-
-// 319. Updating the UI Based on Auth Status
-// CAME FROM EventsNavigation.js
-// STEP 6:
-// 6.1 There I aslo use "useRouteLoaderData" hook.
-// That information can might be used to conditionally show that menu.
-// 6.2 I only wanna show it if we have a token.
-// 319. Updating the UI Based on Auth Status

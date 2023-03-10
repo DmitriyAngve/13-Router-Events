@@ -4,7 +4,7 @@ export function getTokenDuration() {
   const storedExpirationDate = localStorage.getItem("expiration");
   const expirationDate = new Date(storedExpirationDate);
   const now = new Date();
-  const duration = expirationDate.getTime() - now.getTime;
+  const duration = expirationDate.getTime() - now.getTime();
   return duration;
 }
 
@@ -12,7 +12,7 @@ export function getAuthToken() {
   const token = localStorage.getItem("token");
 
   if (!token) {
-    return;
+    return null;
   }
 
   const tokenDuration = getTokenDuration();
@@ -25,7 +25,8 @@ export function getAuthToken() {
 }
 
 export function tokenLoader() {
-  return getAuthToken();
+  const token = getAuthToken();
+  return token;
 }
 
 export function checkAuthLoader() {
@@ -34,9 +35,7 @@ export function checkAuthLoader() {
   if (!token) {
     return redirect("/auth");
   }
-  return null;
 }
-
 // 317. Attaching Auth Tokens to Outgoing Requests
 // CAME FROM Authentication.js
 // STEP 2:
