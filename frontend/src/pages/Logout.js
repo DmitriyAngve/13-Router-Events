@@ -15,5 +15,4 @@ export function action() {
 // 2.3 Then I want to return "redirect" and redirect if a user logs out to a starter page.
 // Now I can register a new route that only has that "action"
 // GO TO App.js --->>
-
 // 318. Adding User Logout
