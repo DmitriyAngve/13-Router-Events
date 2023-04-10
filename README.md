@@ -8,7 +8,7 @@ In addition, we protect certain routes (so you can't reach routes we're not supp
 All these features are implemented using a token that is created on the backend and sent to the frontend, stored in localStorage.
 
 
-<h3>npm start in backend folder</h3>
-<h3>npm star in frontend folder</h3>
+<h4>npm start in backend folder</h4>
+<h4>npm start in frontend folder</h4>
 
 <h3 align="center">Thanks for reading this entire post.</h3>
